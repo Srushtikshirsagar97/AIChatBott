@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+public class AIChatBot {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Hello! I am your AI Chatbot. Type 'bye' to exit.");
+
+        while (true) 
+        {
+            System.out.print("You: ");
+            String userInput = scanner.nextLine();
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                System.out.println("Chatbot: Goodbye! Have a great day!");
+                break;
+            }
+
+            String response = getResponse(userInput);
+            System.out.println(" Chatbot: " + response);
+        }
+
+        scanner.close();
+    }
+
+    // Basic NLP - keyword matching
+    public static String extractKeyword(String input) {
+        input = input.toLowerCase();
+
+        if (input.contains("hello") || input.contains("hi")) return "greeting";
+        if (input.contains("your name")) return "name";
+        if (input.contains("java")) return "java";
+        if (input.contains("help")) return "help";
+        if (input.contains("contact")) return "contact";
+        if (input.contains("time")) return "time";
+        if (input.contains("who are you")) return "identity";
+        if (input.contains("how are you")) return "feeling";
+
+        return "unknown";
+    }
+
+    // Rule-based answers (FAQ)
+    public static String getResponse(String input) {
+        String keyword = extractKeyword(input);
+
+        switch (keyword) {
+            case "greeting":
+                return "Hello! How can I assist you today?";
+            case "name":
+                return "I am a simple AI chatbot made using Java!";
+            case "java":
+                return "Java is a powerful programming language used for building applications.";
+            case "help":
+                return "I can help you with general questions, Java topics, or contact info.";
+            case "contact":
+                return "You can contact support at: support@example.com";
+            case "time":
+                return "Sorry, I cannot tell the time right now.";
+            case "identity":
+                return "I am your friendly Java chatbot assistant!";
+            case "feeling":
+                return "I'm just a bunch of code, but thanks for asking!";
+            default:
+                return "I'm sorry, I didn't understand that. Can you please rephrase?";
+        }
+    }
+}
